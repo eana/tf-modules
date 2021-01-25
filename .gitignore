@@ -1,0 +1,26 @@
+#  Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# terraform plans
+*.plan
+
+# .tfvars files
+*.tfvars
+
+# tmp directory contents
+tmp/*
+!tmp/.gitkeep
+
+# IDE project files
+.idea/
+*.iml
+
+# Mac OS files
+.DS_Store
+
+# zip archives
+*.zip
