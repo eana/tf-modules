@@ -1,0 +1,99 @@
+---
+version: 2.1
+
+executors:
+  terraform:
+    docker:
+      - image: hashicorp/terraform:0.12.23
+  shellcheck:
+    docker:
+      - image: koalaman/shellcheck-alpine:latest
+  ruby:
+    docker:
+      - image: circleci/ruby:2
+        environment:
+          # Bundle env vars to get bundle to run in a cachable dir (and work
+          # with any network flakeness)
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+
+commands:
+  bundle_install:
+    description: "Run bundle install using the CircleCI cache"
+    steps:
+      - restore_cache:
+          keys:
+            - v1-bundle-{{ checksum "Gemfile.lock" }}
+            - v1-bundle
+      - run: bundle install
+      - save_cache:
+          key: v1-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+jobs:
+  fmt_modules:
+    executor: terraform
+    steps:
+      - checkout
+      - run:
+          name: Check Terraform Formatting
+          command: terraform fmt -check -diff -recursive modules/
+
+  lint_scripts:
+    executor: shellcheck
+    steps:
+      - run:
+          name: Install Git
+          command: apk add --no-cache git
+      - checkout
+      - run:
+          name: Shell Check scripts
+          command: shellcheck tools/*.sh
+
+  run_danger:
+    executor: ruby
+    steps:
+      - checkout
+      - bundle_install
+      - run:
+          name: Run Danger
+          command: bundle exec danger
+
+  publish_artifacts:
+    executor: ruby
+    steps:
+      - checkout
+      - run:
+          name: Install awscli
+          command: sudo apt update && sudo apt install --assume-yes awscli
+      - run:
+          name: Package Modules
+          command: ./tools/package.sh
+      - run:
+          name: Upload Modules
+          command: ./tools/upload.sh
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - fmt_modules
+      - lint_scripts
+      - run_danger:
+          requires:
+            - fmt_modules
+            - lint_scripts
+          context: danger_github_token
+          filters:
+            branches:
+              ignore: master
+      - publish_artifacts:
+          requires:
+            - fmt_modules
+            - lint_scripts
+          context: tf-modules
+          filters:
+            branches:
+              only: master
