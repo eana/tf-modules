@@ -26,9 +26,29 @@ To destroy this example you need to execute the following:
 $ terraform destroy -var 'profile=AWS-PROFILE'
 ```
 
-Outputs
--------
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12 |
+| aws | >= 2.21.1 |
+
+## Providers
+
+No provider.
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| profile | Local AWS profile to use | `string` | `""` | no |
+
+## Outputs
+
 | Name | Description |
 |------|-------------|
-| public_blocked_bucket_arns | ARN of the public blocked bucket |
-| public_allow_bucket_arns | ARNs of the public allow buckets |
+| public\_allow\_bucket\_arns | ARNs of the public allow buckets |
+| public\_blocked\_bucket\_arns | ARN of the public blocked bucket |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -1,6 +1,6 @@
 variable "names" {
   description = "A list of globally unique names for buckets"
-  type        = "list"
+  type        = list(string)
   default     = [""]
 }
 

@@ -31,24 +31,38 @@ Examples
 --------
 * [Multiple Buckets](./examples/multiple-buckets)
 
-Inputs
-------
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
 
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| acl | The type of ACL to apply to the bucket | string | `"private"` |
-| block_public_acls | Whether Amazon S3 should block public ACLs for this bucket | bool | `true` |
-| block_public_policy | Whether Amazon S3 should block public bucket policies for this bucket | bool | `true` |
-| ignore_public_acls | Whether Amazon S3 should ignore public ACLs for this bucket | bool | `true` |
-| mfa_delete | Enable MFA delete on bucket objects | bool | `false` |
-| names | A list of globally unique names for buckets | list |`[""]` |
-| restrict_public_buckets | Whether Amazon S3 should restrict public bucket policies for this bucket | bool | `true` |
-| versioning | Enable versioning on bucket objects | bool | `false` |
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12 |
 
-Outputs
--------
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| acl | The type of ACL to apply to the bucket | `string` | `"private"` | no |
+| block\_public\_acls | Whether Amazon S3 should block public ACLs for this bucket | `bool` | `true` | no |
+| block\_public\_policy | Whether Amazon S3 should block public bucket policies for this bucket | `bool` | `true` | no |
+| ignore\_public\_acls | Whether Amazon S3 should ignore public ACLs for this bucket | `bool` | `true` | no |
+| mfa\_delete | Enable MFA delete on bucket objects | `bool` | `false` | no |
+| names | A list of globally unique names for buckets | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| restrict\_public\_buckets | Whether Amazon S3 should restrict public bucket policies for this bucket | `bool` | `true` | no |
+| versioning | Enable versioning on bucket objects | `bool` | `false` | no |
+
+## Outputs
+
 | Name | Description |
 |------|-------------|
-| bucket_arns | ARN of each bucket |
-| bucket_domain_names | Domain name of each bucket |
-| bucket_ids | The ID of each bucket |
+| bucket\_arns | ARN of each bucket |
+| bucket\_domain\_names | Domain name of each bucket |
+| bucket\_ids | The ID of each bucket |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
