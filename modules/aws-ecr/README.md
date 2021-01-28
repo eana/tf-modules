@@ -59,6 +59,9 @@ module "example" {
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-|      |             |
+| Name                       | Description                                      |
+|----------------------------|--------------------------------------------------|
+| ecr_repository_arn         | Full ARN of the repository                       |
+| ecr_repository_name        | The name of the repository                       |
+| ecr_repository_registry_id | The registry ID where the repository was created |
+| ecr_repository_url         | The URL of the repository                        |
