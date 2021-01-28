@@ -9,8 +9,6 @@
 * [Versions](#versions)
 * [Usage](#usage)
 * [Examples](#examples)
-* [Inputs](#inputs)
-* [Outputs](#outputs)
 
 <!-- vim-markdown-toc -->
 
@@ -47,21 +45,37 @@ module "example" {
 
 * [Full Example](./examples/full-example)
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+
 ## Inputs
 
-| Name             | Description                                                                   | Type   | Default                          |
-|------------------|-------------------------------------------------------------------------------|--------|----------------------------------|
-| create           | Conditionally create repository/policy                                        | bool   | `false`                          |
-| name             | Name for identifying the repository.                                          | string | None                             |
-| policy           | ECR policy to be attached to the repository                                   | string | None                             |
-| lifecycle_policy | ECR Lifecycle policy to be attached to the repository                         | string | `local.default_lifecycle_policy` |
-| scan_image       | Should the images uploaded be scanned by AWS ECR for security vulnerabilities | bool   | `true`                           |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| create | Determine whether to create repository/policy | `bool` | `false` | no |
+| lifecycle\_policy | Content of desired ECR lifecycle policy JSON file | `string` | `""` | no |
+| name | Repository name | `string` | n/a | yes |
+| policy | Content of desired ECR policy JSON file | `string` | n/a | yes |
+| scan\_image | Should the images uploaded be scanned by AWS ECR for security vulnerabilities | `bool` | `true` | no |
+| tags | Addional tags to be added to the ECR repository | `map(string)` | `{}` | no |
 
 ## Outputs
 
-| Name                       | Description                                      |
-|----------------------------|--------------------------------------------------|
-| ecr_repository_arn         | Full ARN of the repository                       |
-| ecr_repository_name        | The name of the repository                       |
-| ecr_repository_registry_id | The registry ID where the repository was created |
-| ecr_repository_url         | The URL of the repository                        |
+| Name | Description |
+|------|-------------|
+| ecr\_repository\_arn | Full ARN of the repository |
+| ecr\_repository\_name | The name of the repository |
+| ecr\_repository\_registry\_id | The registry ID where the repository was created |
+| ecr\_repository\_url | The URL of the repository |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -1,5 +1,5 @@
 variable "profile" {
-  type        = "string"
+  type        = string
   description = "Profile to use"
   default     = "izettle-hackweek"
 }

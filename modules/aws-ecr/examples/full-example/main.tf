@@ -4,13 +4,13 @@ provider "aws" {
 }
 
 locals {
-  create = "${terraform.workspace == "default" ? true : false}"
+  create = terraform.workspace == "default" ? true : false
 }
 
 module "example" {
   source = "../../"
 
-  create           = "${local.create}"
+  create           = local.create
   name             = "example"
   policy           = file("policies/ecr_policy.json")
   lifecycle_policy = file("lifecycle_policies/example.json")
