@@ -36,11 +36,17 @@ resources:
 
 The below outlines the current parameters and defaults.
 
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-------:|:--------:|
-|limit_amount|The budget limit amount|number|""|No|
-|limit_unit|The budget limit unit. Default is USD|string|USD|No|
-|subscriber_email_addresses|The list of email addresses of notification subscribers|list(string)|[]|No|
+| Name                       | Description                                             | Type         | Default | Required |
+|----------------------------|---------------------------------------------------------|:------------:|:-------:|:--------:|
+| limit_amount               | The budget limit amount                                 | number       | ""      | No       |
+| limit_unit                 | The budget limit unit. Default is USD                   | string       | USD     | No       |
+| subscriber_email_addresses | The list of email addresses of notification subscribers | list(string) | []      | No       |
+
+### Outputs
+
+| Name | Description             |
+|------|-------------------------|
+| id   | The budget limit amount |
 
 ### Example
 
