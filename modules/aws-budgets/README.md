@@ -7,9 +7,8 @@
 
 * [Overview](#overview)
 * [AWS Budgets](#aws-budgets)
-	* [Resources docs](#resources-docs)
-	* [Inputs](#inputs)
-	* [Example](#example)
+    * [Resources docs](#resources-docs)
+    * [Example](#example)
 
 <!-- vim-markdown-toc -->
 ## Overview
@@ -32,22 +31,6 @@ resources:
 - [`aws_budgets_budget`](https://www.terraform.io/docs/providers/aws/r/budgets_budget.html)
   - Provides a budgets budget resource.
 
-### Inputs
-
-The below outlines the current parameters and defaults.
-
-| Name                       | Description                                             | Type         | Default | Required |
-|----------------------------|---------------------------------------------------------|:------------:|:-------:|:--------:|
-| limit_amount               | The budget limit amount                                 | number       | ""      | No       |
-| limit_unit                 | The budget limit unit. Default is USD                   | string       | USD     | No       |
-| subscriber_email_addresses | The list of email addresses of notification subscribers | list(string) | []      | No       |
-
-### Outputs
-
-| Name | Description             |
-|------|-------------------------|
-| id   | The budget limit amount |
-
 ### Example
 
 A simple example:
@@ -66,3 +49,30 @@ To apply that:
 ```text
 terraform apply
 ```
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| limit\_amount | The budget limit amount | `number` | n/a | yes |
+| limit\_unit | The budget limit unit. Default is USD | `string` | `"USD"` | no |
+| subscriber\_email\_addresses | The list of email addresses of notification subscribers | `list(string)` | `[]` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| budget\_id | The id of the budget. |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
