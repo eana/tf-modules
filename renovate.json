@@ -1,5 +1,9 @@
 {
   "extends": [
-    "config:base"
-  ]
+    "config:base",
+    "schedule:weekly"
+  ],
+  "labels": ["dependencies"],
+  "minor": { "automerge": true },
+  "patch": { "automerge": true }
 }
