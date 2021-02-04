@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "config:base",
+    ":dependencyDashboard"
+  ],
+  "labels": ["dependencies"],
+  "minor": { "automerge": true },
+  "patch": { "automerge": true },
+  "schedule": ["after 10am and before 3pm on every weekday"],
+  "assignees": ["@eana"],
+  "reviewers": ["@eana"]
+}
