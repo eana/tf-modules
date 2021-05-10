@@ -10,7 +10,7 @@ executors:
       - image: koalaman/shellcheck-alpine:latest
   ruby:
     docker:
-      - image: circleci/ruby:2
+      - image: circleci/ruby:3
         environment:
           # Bundle env vars to get bundle to run in a cachable dir (and work
           # with any network flakeness)
