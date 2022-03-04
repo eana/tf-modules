@@ -23,11 +23,6 @@ resource "aws_iam_role" "this" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "ssm" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  role       = aws_iam_role.this.name
-}
-
 resource "aws_iam_role_policy" "eni" {
   role   = aws_iam_role.this.name
   name   = var.name

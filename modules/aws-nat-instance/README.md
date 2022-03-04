@@ -60,7 +60,7 @@ This module provisions the following resources:
 - Elastic IP
 - Elastic Network Interface
 - Security Group
-- IAM Role for SSM and ENI attachment
+- ENI attachment
 - VPC Route (optional)
 
 Take a look at the diagram:
@@ -165,34 +165,54 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_autoscaling_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group) | resource |
+| [aws_eip.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
+| [aws_iam_instance_profile.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
+| [aws_iam_role.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy.eni](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_launch_template.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
+| [aws_network_interface.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_interface) | resource |
+| [aws_route.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
+| [aws_security_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group_rule.egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_ami.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| enabled | Enable or not costly resources | `bool` | `true` | no |
-| extra\_user\_data | Extra script to run in the NAT instance | `string` | `""` | no |
-| image\_id | AMI of the NAT instance. Default to the latest Amazon Linux 2 | `string` | `""` | no |
-| instance\_types | Candidates of spot instance type for the NAT instance. This is used in the mixed instances policy | `list(any)` | <pre>[<br>  "t3.nano",<br>  "t3a.nano"<br>]</pre> | no |
-| key\_name | Name of the key pair for the NAT instance. You can set this to assign the key pair to the NAT instance | `string` | `""` | no |
-| name | Name for all the resources as identifier | `string` | n/a | yes |
-| private\_route\_table\_ids | List of ID of the route tables for the private subnets. You can set this to assign the each default route to the NAT instance | `list(any)` | `[]` | no |
-| private\_subnets\_cidr\_blocks | List of CIDR blocks of the private subnets. The NAT instance accepts connections from this subnets | `list(any)` | n/a | yes |
-| public\_subnet | ID of the public subnet to place the NAT instance | `string` | n/a | yes |
-| tags | Tags applied to resources created with this module | `map(any)` | `{}` | no |
-| use\_spot\_instance | Whether to use spot or on-demand EC2 instance | `bool` | `true` | no |
-| vpc\_id | ID of the VPC | `string` | n/a | yes |
+| <a name="input_enabled"></a> [enabled](#input\_enabled) | Enable or not costly resources | `bool` | `true` | no |
+| <a name="input_extra_user_data"></a> [extra\_user\_data](#input\_extra\_user\_data) | Extra script to run in the NAT instance | `string` | `""` | no |
+| <a name="input_image_id"></a> [image\_id](#input\_image\_id) | AMI of the NAT instance. Default to the latest Amazon Linux 2 | `string` | `""` | no |
+| <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | Candidates of spot instance type for the NAT instance. This is used in the mixed instances policy | `list(any)` | <pre>[<br>  "t3.nano",<br>  "t3a.nano"<br>]</pre> | no |
+| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Name of the key pair for the NAT instance. You can set this to assign the key pair to the NAT instance | `string` | `""` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name for all the resources as identifier | `string` | n/a | yes |
+| <a name="input_private_route_table_ids"></a> [private\_route\_table\_ids](#input\_private\_route\_table\_ids) | List of ID of the route tables for the private subnets. You can set this to assign the each default route to the NAT instance | `list(any)` | `[]` | no |
+| <a name="input_private_subnets_cidr_blocks"></a> [private\_subnets\_cidr\_blocks](#input\_private\_subnets\_cidr\_blocks) | List of CIDR blocks of the private subnets. The NAT instance accepts connections from this subnets | `list(any)` | n/a | yes |
+| <a name="input_public_subnet"></a> [public\_subnet](#input\_public\_subnet) | ID of the public subnet to place the NAT instance | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags applied to resources created with this module | `map(any)` | `{}` | no |
+| <a name="input_use_spot_instance"></a> [use\_spot\_instance](#input\_use\_spot\_instance) | Whether to use spot or on-demand EC2 instance | `bool` | `true` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of the VPC | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| eip\_id | ID of the Elastic IP |
-| eip\_public\_ip | Public IP of the Elastic IP for the NAT instance |
-| eni\_id | ID of the ENI for the NAT instance |
-| eni\_private\_ip | Private IP of the ENI for the NAT instance |
-| iam\_role\_name | Name of the IAM role for the NAT instance |
-| sg\_id | ID of the security group of the NAT instance |
-
+| <a name="output_eip_id"></a> [eip\_id](#output\_eip\_id) | ID of the Elastic IP |
+| <a name="output_eip_public_ip"></a> [eip\_public\_ip](#output\_eip\_public\_ip) | Public IP of the Elastic IP for the NAT instance |
+| <a name="output_eni_id"></a> [eni\_id](#output\_eni\_id) | ID of the ENI for the NAT instance |
+| <a name="output_eni_private_ip"></a> [eni\_private\_ip](#output\_eni\_private\_ip) | Private IP of the ENI for the NAT instance |
+| <a name="output_iam_role_name"></a> [iam\_role\_name](#output\_iam\_role\_name) | Name of the IAM role for the NAT instance |
+| <a name="output_sg_id"></a> [sg\_id](#output\_sg\_id) | ID of the security group of the NAT instance |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
