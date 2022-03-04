@@ -1,11 +1,34 @@
 #!/bin/bash -x
+# shellcheck disable=SC2154
+set -exuo pipefail
 
 # Determine the region
-export AWS_DEFAULT_REGION="$(/opt/aws/bin/ec2-metadata -z | sed 's/placement: \(.*\).$/\1/')"
+AWS_DEFAULT_REGION="$(/opt/aws/bin/ec2-metadata -z | sed 's/placement: \(.*\).$/\1/')"
+export AWS_DEFAULT_REGION
+
+function retry {
+  local retries=$1
+  shift
+
+  local count=0
+  until "$@"; do
+    exit=$?
+    wait=$((2 ** count))
+    count=$((count + 1))
+    if [ "$count" -lt "$retries" ]; then
+      echo "Retry $count/$retries exited $exit, retrying in $wait seconds..."
+      sleep $wait
+    else
+      echo "Retry $count/$retries exited $exit, no more retries left."
+      return $exit
+    fi
+  done
+  return 0
+}
 
 # Attach the ENI
 instance_id="$(/opt/aws/bin/ec2-metadata -i | cut -d' ' -f2)"
-aws ec2 attach-network-interface \
+retry 10 aws ec2 attach-network-interface \
     --instance-id "$instance_id" \
     --device-index 1 \
     --network-interface-id "${eni_id}"
@@ -23,9 +46,6 @@ ip route del default dev eth0
 
 # Waiting for network connection
 curl --retry 10 http://www.example.com
-
-# Restart the SSM agent
-systemctl restart amazon-ssm-agent.service
 
 # Run the extra script if set
 ${extra_user_data}
